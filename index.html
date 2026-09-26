@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en" x-data="portfolioApp()" :class="{ 'dark': darkMode }">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harsh Gaur | Marketing & Sales Specialist | Portfolio</title>
+    <meta name="description" content="Portfolio of Harsh Gaur - Final-year BBA (Marketing) student at Manipal School of Commerce & Economics (MAHE). Sales intern at Toyota, certified in Meta Ads, Google Analytics & Business Strategy.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            200: '#bae0fd',
+                            500: '#0284c7',
+                            600: '#026aa7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        toyota: '#eb0a1e'
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Alpine.js CDN -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 font-sans antialiased selection:bg-brand-500 selection:text-white transition-colors duration-300 overflow-x-hidden">
+
+    <!-- Toast Notification -->
+    <div x-show="toast.visible" 
+         x-transition:enter="transition ease-out duration-300 transform"
+         x-transition:enter-start="opacity-0 translate-y-4"
+         x-transition:enter-end="opacity-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-200 transform"
+         x-transition:leave-start="opacity-100 translate-y-0"
+         x-transition:leave-end="opacity-0 translate-y-4"
+         class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 bg-slate-900 text-white dark:bg-slate-800 dark:text-white rounded-xl shadow-2xl border border-slate-700/50"
+         style="display: none;">
+        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-400"></i>
+        <span x-text="toast.message" class="text-sm font-medium"></span>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-slate-950/80 border-b border-slate-200/80 dark:border-slate-800/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo Brand -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-md group-hover:scale-110 transition-transform duration-300">
+                    HG
+                </div>
+                <div>
+                    <span class="font-extrabold text-xl tracking-tight text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-500 transition-colors">
+                        Harsh Gaur
+                    </span>
+                    <span class="block text-xs font-semibold text-brand-600 dark:text-brand-400">BBA Marketing '27</span>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#about" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-600 hover:after:w-full after:transition-all">About</a>
+                <a href="#experience" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-600 hover:after:w-full after:transition-all">Experience</a>
+                <a href="#certifications" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-600 hover:after:w-full after:transition-all">Certifications</a>
+                <a href="#skills" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-600 hover:after:w-full after:transition-all">Skills</a>
+                <a href="#education" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-600 hover:after:w-full after:transition-all">Education</a>
+                <a href="#contact" class="text-sm font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-brand-600 hover:after:w-full after:transition-all">Contact</a>
+            </nav>
+
+            <!-- Actions Right -->
+            <div class="hidden md:flex items-center gap-4">
+                <!-- Theme Toggle Button -->
+                <button @click="toggleTheme()" type="button" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all hover:rotate-12" title="Toggle Theme">
+                    <template x-if="!darkMode">
+                        <i data-lucide="moon" class="w-5 h-5"></i>
+                    </template>
+                    <template x-if="darkMode">
+                        <i data-lucide="sun" class="w-5 h-5"></i>
+                    </template>
+                </button>
+
+                <!-- CV Print Button -->
+                <button @click="openResumeModal = true" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-all hover:scale-105 shadow-sm">
+                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                    <span>Resume View</span>
+                </button>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <div class="flex items-center gap-3 md:hidden">
+                <button @click="toggleTheme()" type="button" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
+                    <i data-lucide="moon" x-show="!darkMode" class="w-5 h-5"></i>
+                    <i data-lucide="sun" x-show="darkMode" class="w-5 h-5"></i>
+                </button>
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="p-2 rounded-lg text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    <i data-lucide="menu" x-show="!mobileMenuOpen" class="w-6 h-6"></i>
+                    <i data-lucide="x" x-show="mobileMenuOpen" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div x-show="mobileMenuOpen" 
+             x-transition:enter="transition ease-out duration-200"
+             x-transition:enter-start="opacity-0 -translate-y-2"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             class="md:hidden bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 pt-2 pb-6 space-y-3">
+            <a @click="mobileMenuOpen = false" href="#about" class="block py-2 text-base font-medium text-slate-700 dark:text-slate-200 hover:text-brand-600">About</a>
+            <a @click="mobileMenuOpen = false" href="#experience" class="block py-2 text-base font-medium text-slate-700 dark:text-slate-200 hover:text-brand-600">Experience</a>
+            <a @click="mobileMenuOpen = false" href="#certifications" class="block py-2 text-base font-medium text-slate-700 dark:text-slate-200 hover:text-brand-600">Certifications</a>
+            <a @click="mobileMenuOpen = false" href="#skills" class="block py-2 text-base font-medium text-slate-700 dark:text-slate-200 hover:text-brand-600">Skills</a>
+            <a @click="mobileMenuOpen = false" href="#education" class="block py-2 text-base font-medium text-slate-700 dark:text-slate-200 hover:text-brand-600">Education</a>
+            <a @click="mobileMenuOpen = false" href="#contact" class="block py-2 text-base font-medium text-slate-700 dark:text-slate-200 hover:text-brand-600">Contact</a>
+            <div class="pt-2">
+                <button @click="mobileMenuOpen = false; openResumeModal = true" class="w-full flex items-center justify-center gap-2 py-3 bg-brand-600 text-white rounded-xl font-semibold text-sm">
+                    <i data-lucide="file-text" class="w-4 h-4"></i> View Resume
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section with Canvas Animation -->
+        <section class="relative pt-12 pb-20 md:pt-20 md:pb-28 overflow-hidden">
+            <!-- Particle Mesh Canvas -->
+            <canvas id="hero-canvas" class="absolute inset-0 pointer-events-none z-0"></canvas>
+
+            <!-- Background Decorative Glow Orbs -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-brand-500/10 dark:bg-brand-500/20 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+            <div class="absolute top-1/3 right-10 w-[300px] h-[300px] bg-indigo-500/10 dark:bg-indigo-500/15 rounded-full blur-2xl pointer-events-none animate-float"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="max-w-3xl">
+                    
+                    <!-- Status Badge -->
+                    <div class="reveal active inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-semibold mb-6 shadow-sm">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Available for Full-Time Roles & Growth Opportunities
+                    </div>
+
+                    <!-- Main Headline -->
+                    <h1 class="reveal active delay-100 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-[1.15] mb-6">
+                        Hi, I'm <span class="bg-gradient-to-r from-brand-600 via-indigo-600 to-sky-500 bg-clip-text text-transparent animate-pulse">Harsh Gaur</span>
+                    </h1>
+
+                    <p class="reveal active delay-200 text-xl sm:text-2xl text-slate-600 dark:text-slate-300 font-medium leading-relaxed mb-8">
+                        Final-year <span class="text-slate-900 dark:text-white font-semibold">BBA (Marketing) Candidate</span> at Manipal School of Commerce and Economics (MAHE). Combining hands-on sales experience from <span class="text-red-600 dark:text-red-400 font-semibold">Toyota</span> with data analytics and strategic marketing.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="reveal active delay-300 flex flex-wrap items-center gap-4 mb-12">
+                        <a href="#experience" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold shadow-lg shadow-brand-500/25 transition-all hover:scale-105 active:scale-95">
+                            <span>Explore Experience</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                        <a href="#certifications" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition-all hover:scale-105">
+                            <i data-lucide="award" class="w-4 h-4 text-brand-600 dark:text-brand-400"></i>
+                            <span>6 Coursera Certifications</span>
+                        </a>
+                        <button @click="copyContactInfo()" class="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium transition-all hover:scale-105">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                            <span>Copy Email</span>
+                        </button>
+                    </div>
+
+                    <!-- Highlight Metrics Bar -->
+                    <div id="metrics-bar" class="reveal active delay-400 grid grid-cols-2 sm:grid-cols-4 gap-4 p-6 rounded-2xl bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200/80 dark:border-slate-800/80 shadow-md">
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-brand-600 dark:text-brand-400 flex items-center">
+                                <span x-text="metrics.months">0</span><span class="ml-1"> Months</span>
+                            </div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Toyota Sales Internship</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white flex items-center">
+                                <span x-text="metrics.cgpa">0</span><span class="ml-1 text-sm text-slate-400">/ 10</span>
+                            </div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">CGPA @ MAHE</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-indigo-600 dark:text-indigo-400 flex items-center">
+                                <span x-text="metrics.certs">0</span><span class="ml-0.5">+</span>
+                            </div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Global Certifications</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">Goa, IN</div>
+                            <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mt-1">Base Location</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-white dark:bg-slate-900 border-y border-slate-200/60 dark:border-slate-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row gap-12 items-start">
+                    
+                    <div class="lg:w-1/3 space-y-4 reveal reveal-left">
+                        <div class="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 font-bold text-sm tracking-wider uppercase">
+                            <i data-lucide="user" class="w-4 h-4"></i> About Me
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                            Driven by Market Insights & Customer Behavior
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            I am a final-year BBA student specializing in Marketing at Manipal School of Commerce and Economics (MSCE | MAHE). My approach blends real-world sales execution with analytical rigor.
+                        </p>
+                    </div>
+
+                    <div class="lg:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-6 reveal reveal-right">
+                        
+                        <div class="glow-card card-shimmer p-6 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition-all group">
+                            <div class="w-12 h-12 rounded-xl bg-brand-100 dark:bg-brand-950 text-brand-600 dark:text-brand-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="trending-up" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Data-Driven Growth</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">
+                                Skilled in using Google Trends, Excel, and Meta Ads to extract consumer insights and optimize customer acquisition strategies.
+                            </p>
+                        </div>
+
+                        <div class="glow-card card-shimmer p-6 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition-all group">
+                            <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-950 text-red-600 dark:text-red-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="briefcase" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Automotive Sales & CRM</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">
+                                4-month hands-on internship in Toyota's sales department at Sharayu Automobiles, acquiring practical consultative selling skills.
+                            </p>
+                        </div>
+
+                        <div class="glow-card card-shimmer p-6 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition-all group">
+                            <div class="w-12 h-12 rounded-xl bg-indigo-100 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="shopping-cart" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">E-Commerce Strategy</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">
+                                Certified by Google in building, launching, and managing online stores, managing product positioning and store conversion.
+                            </p>
+                        </div>
+
+                        <div class="glow-card card-shimmer p-6 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-brand-500 transition-all group">
+                            <div class="w-12 h-12 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                                <i data-lucide="sparkles" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Visual Content & AI Tools</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">
+                                Proficient in Canva, Figma, PowerPoint, and modern AI tools for rapid creative design, market presentation, and strategy modeling.
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="py-20 bg-slate-50 dark:bg-slate-950">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mb-12 reveal">
+                    <div class="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 font-bold text-sm tracking-wider uppercase mb-2">
+                        <i data-lucide="briefcase" class="w-4 h-4"></i> Work Experience
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                        Hands-On Industry Experience
+                    </h2>
+                </div>
+
+                <div class="relative border-l-2 border-slate-200 dark:border-slate-800 ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-12">
+                    
+                    <!-- Toyota Internship Card -->
+                    <div class="relative group reveal reveal-left">
+                        <!-- Timeline Dot -->
+                        <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-5 h-5 rounded-full border-4 border-slate-50 dark:border-slate-950 bg-red-600 group-hover:scale-150 transition-transform duration-300"></div>
+
+                        <div class="glow-card card-shimmer p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-4">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-xl bg-red-50 dark:bg-red-950/60 border border-red-200 dark:border-red-900 flex items-center justify-center font-bold text-red-600 dark:text-red-400 text-xl group-hover:rotate-12 transition-transform">
+                                        🚗
+                                    </div>
+                                    <div>
+                                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Sales & Marketing Intern</h3>
+                                        <div class="text-sm font-semibold text-red-600 dark:text-red-400">Sharayu Automobiles (Toyota)</div>
+                                    </div>
+                                </div>
+                                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-semibold self-start sm:self-center">
+                                    <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+                                    04.01.2026 - 04.05.2026 (4 Months)
+                                </div>
+                            </div>
+
+                            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
+                                Completed an intensive 4-month practical training internship within the Sales Department of Sharayu Toyota (Colvale Industrial Estate, Bardez, Goa). Managed real customer interactions, sales funnels, and marketing touchpoints.
+                            </p>
+
+                            <!-- Key Highlights Bullets -->
+                            <div class="space-y-2.5 mb-6">
+                                <div class="flex items-start gap-2.5 text-sm text-slate-700 dark:text-slate-300">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                                    <span><strong>Consultative Sales Pitching:</strong> Engaged walk-in prospects and conducted detailed vehicle presentations highlighting features, financing options, and total cost of ownership.</span>
+                                </div>
+                                <div class="flex items-start gap-2.5 text-sm text-slate-700 dark:text-slate-300">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                                    <span><strong>Customer Relationship Management:</strong> Maintained structured follow-up logs using CRM tools, ensuring high engagement from lead generation to test-drive bookings.</span>
+                                </div>
+                                <div class="flex items-start gap-2.5 text-sm text-slate-700 dark:text-slate-300">
+                                    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-500 shrink-0 mt-0.5"></i>
+                                    <span><strong>Market Analysis & Feedback:</strong> Collected customer feedback during vehicle walkthroughs to identify sales objections and support senior sales executives.</span>
+                                </div>
+                            </div>
+
+                            <!-- Certificate Trigger Button -->
+                            <button @click="openToyotaCertModal = true" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-red-50 dark:bg-red-950/60 hover:bg-red-100 dark:hover:bg-red-900/60 border border-red-200 dark:border-red-900 text-red-700 dark:text-red-300 text-xs font-bold transition-all hover:scale-105">
+                                <i data-lucide="file-check" class="w-4 h-4"></i>
+                                <span>View Verified Toyota Certificate</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Certifications Section -->
+        <section id="certifications" class="py-20 bg-white dark:bg-slate-900 border-t border-slate-200/60 dark:border-slate-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 reveal">
+                    <div>
+                        <div class="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 font-bold text-sm tracking-wider uppercase mb-2">
+                            <i data-lucide="award" class="w-4 h-4"></i> Credentials
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                            Industry Certifications
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Verified certifications from Duke, Google, Meta, and University of Virginia.</p>
+                    </div>
+
+                    <!-- Category Filter Tabs -->
+                    <div class="flex flex-wrap gap-2">
+                        <template x-for="cat in certCategories" :key="cat">
+                            <button @click="selectedCertCategory = cat" 
+                                    :class="selectedCertCategory === cat ? 'bg-brand-600 text-white shadow-md scale-105' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'"
+                                    class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition-all duration-200"
+                                    x-text="cat">
+                            </button>
+                        </template>
+                    </div>
+                </div>
+
+                <!-- Certifications Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <template x-for="(cert, index) in filteredCertifications" :key="cert.title">
+                        <div class="glow-card card-shimmer reveal reveal-scale p-6 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 flex flex-col justify-between hover:border-brand-500 hover:shadow-xl transition-all duration-300"
+                             :class="'delay-' + ((index % 3 + 1) * 100)">
+                            <div>
+                                <div class="flex items-center justify-between gap-3 mb-4">
+                                    <span class="px-2.5 py-1 rounded-md text-[11px] font-extrabold tracking-wide uppercase"
+                                          :class="{
+                                              'bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300': cert.issuer === 'Duke University',
+                                              'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300': cert.issuer === 'Google',
+                                              'bg-sky-100 dark:bg-sky-950 text-sky-700 dark:text-sky-300': cert.issuer === 'Meta',
+                                              'bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300': cert.issuer === 'University of Virginia'
+                                          }">
+                                        <span x-text="cert.issuer"></span>
+                                    </span>
+                                    <span class="text-xs text-slate-400 font-medium">Coursera</span>
+                                </div>
+
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors mb-3" x-text="cert.title"></h3>
+                                <p class="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-4" x-text="cert.description"></p>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-200/60 dark:border-slate-800/60 flex items-center justify-between">
+                                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400" x-text="cert.category"></span>
+                                <span class="inline-flex items-center gap-1 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                                    <i data-lucide="check-circle-2" class="w-3.5 h-3.5"></i> Verified
+                                </span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Technical & Professional Skills Section -->
+        <section id="skills" class="py-20 bg-slate-50 dark:bg-slate-950">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mb-12 reveal">
+                    <div class="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 font-bold text-sm tracking-wider uppercase mb-2">
+                        <i data-lucide="cpu" class="w-4 h-4"></i> Toolkit
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                        Technical Skills & Competencies
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">Tools, platforms, and analytical skills leveraged for digital marketing and sales growth.</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    
+                    <!-- Skill Group 1 -->
+                    <div class="glow-card card-shimmer reveal reveal-scale delay-100 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                        <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold mb-4">
+                            <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-3">Analytics & Trends</h3>
+                        <ul class="space-y-2.5">
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">Microsoft Excel</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Advanced</span>
+                            </li>
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">Google Trends</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Proficient</span>
+                            </li>
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">Data-Driven Decisions</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Certified</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Group 2 -->
+                    <div class="glow-card card-shimmer reveal reveal-scale delay-200 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                        <div class="w-10 h-10 rounded-lg bg-sky-50 dark:bg-sky-950 text-sky-600 dark:text-sky-400 flex items-center justify-center font-bold mb-4">
+                            <i data-lucide="target" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-3">Digital Marketing & CRM</h3>
+                        <ul class="space-y-2.5">
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">Meta Ads</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Certified</span>
+                            </li>
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">CRM Softwares</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Practical</span>
+                            </li>
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">Social Media Marketing</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Proficient</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Group 3 -->
+                    <div class="glow-card card-shimmer reveal reveal-scale delay-300 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                        <div class="w-10 h-10 rounded-lg bg-purple-50 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold mb-4">
+                            <i data-lucide="palette" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-3">Design & Content</h3>
+                        <ul class="space-y-2.5">
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">Canva</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Expert</span>
+                            </li>
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">Figma</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Intermediate</span>
+                            </li>
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">Microsoft PowerPoint</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Advanced</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Skill Group 4 -->
+                    <div class="glow-card card-shimmer reveal reveal-scale delay-400 p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                        <div class="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold mb-4">
+                            <i data-lucide="bot" class="w-5 h-5"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-3">Productivity & AI</h3>
+                        <ul class="space-y-2.5">
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">Artificial Intelligence</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Prompting</span>
+                            </li>
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">Microsoft Word</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Proficient</span>
+                            </li>
+                            <li class="flex items-center justify-between text-sm">
+                                <span class="font-medium text-slate-700 dark:text-slate-300">E-Commerce Management</span>
+                                <span class="text-xs px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 font-bold">Certified</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="py-20 bg-white dark:bg-slate-900 border-t border-slate-200/60 dark:border-slate-800/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl mb-12 reveal">
+                    <div class="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 font-bold text-sm tracking-wider uppercase mb-2">
+                        <i data-lucide="graduation-cap" class="w-4 h-4"></i> Education
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                        Academic Qualifications
+                    </h2>
+                </div>
+
+                <div class="reveal reveal-scale p-8 rounded-2xl bg-gradient-to-r from-slate-900 to-slate-800 text-white shadow-xl relative overflow-hidden">
+                    <div class="absolute right-0 top-0 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+
+                    <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                        <div>
+                            <div class="inline-block px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-bold mb-3">
+                                2024 - 2027 (Expected Graduation)
+                            </div>
+                            <h3 class="text-2xl sm:text-3xl font-extrabold">Bachelor of Business Administration (BBA)</h3>
+                            <div class="text-brand-400 font-semibold text-lg mt-1">Manipal School of Commerce and Economics (MSCE) | MAHE</div>
+                            <p class="text-slate-300 text-sm mt-3 max-w-xl">
+                                Specialization in Marketing. Comprehensive curriculum covering Consumer Behavior, Strategic Management, Digital Marketing Analytics, Financial Theory, and Business Communication.
+                            </p>
+                        </div>
+
+                        <div class="shrink-0 p-6 rounded-xl bg-white/10 backdrop-blur-md border border-white/10 text-center hover:scale-105 transition-transform duration-300">
+                            <div class="text-xs uppercase tracking-wider font-semibold text-slate-300">Cumulative GPA</div>
+                            <div class="text-4xl font-extrabold text-white mt-1">8.3 <span class="text-lg text-slate-400 font-normal">/ 10</span></div>
+                            <div class="text-xs text-emerald-400 font-semibold mt-1">First Class Distinction</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex items-center gap-6">
+                            <div>
+                                <span class="text-xs text-slate-400 block">Languages</span>
+                                <span class="text-sm font-semibold">English (Fluent), Hindi (Fluent)</span>
+                            </div>
+                            <div>
+                                <span class="text-xs text-slate-400 block">Location</span>
+                                <span class="text-sm font-semibold">Porvorim, Goa, India</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-slate-50 dark:bg-slate-950">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                    
+                    <div class="reveal reveal-left">
+                        <div class="inline-flex items-center gap-2 text-brand-600 dark:text-brand-400 font-bold text-sm tracking-wider uppercase mb-2">
+                            <i data-lucide="mail" class="w-4 h-4"></i> Get In Touch
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+                            Let's Connect & Collaborate
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
+                            Interested in discussing marketing strategies, sales opportunities, or business development roles? Feel free to reach out directly or send a message.
+                        </p>
+
+                        <div class="space-y-4">
+                            <!-- Email -->
+                            <div class="glow-card p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-brand-50 dark:bg-brand-950 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="mail" class="w-5 h-5"></i>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <div class="text-xs text-slate-400 font-semibold">Email</div>
+                                    <a href="mailto:gaur28harsh@gmail.com" class="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 truncate block">
+                                        gaur28harsh@gmail.com
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Phone -->
+                            <div class="glow-card p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-emerald-50 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="phone" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-400 font-semibold">Phone</div>
+                                    <a href="tel:+917868007869" class="text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600">
+                                        +91 7868007869
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="glow-card p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-950 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shrink-0">
+                                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-400 font-semibold">Location</div>
+                                    <div class="text-sm font-bold text-slate-900 dark:text-white">
+                                        Porvorim, Goa, India
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form -->
+                    <div class="reveal reveal-right p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-md">
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Send Me a Message</h3>
+                        <form @submit.prevent="submitContactForm()" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">Your Name</label>
+                                <input type="text" x-model="contactForm.name" required placeholder="John Doe" 
+                                       class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm text-slate-900 dark:text-white transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">Email Address</label>
+                                <input type="email" x-model="contactForm.email" required placeholder="john@example.com" 
+                                       class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm text-slate-900 dark:text-white transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">Subject</label>
+                                <input type="text" x-model="contactForm.subject" required placeholder="Project Opportunity / Meeting Request" 
+                                       class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm text-slate-900 dark:text-white transition-all">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-1.5">Message</label>
+                                <textarea x-model="contactForm.message" required rows="4" placeholder="Hello Harsh, I'd like to discuss..." 
+                                          class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 text-sm text-slate-900 dark:text-white transition-all"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-3.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm shadow-lg shadow-brand-500/25 transition-all hover:scale-[1.02] active:scale-95">
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="text-xs text-slate-500 dark:text-slate-400">
+                © 2026 Harsh Gaur. All rights reserved. Designed for Marketing & Sales Leadership.
+            </div>
+            <div class="flex items-center gap-4 text-xs font-semibold text-slate-500 dark:text-slate-400">
+                <a href="#about" class="hover:text-brand-600">About</a>
+                <a href="#experience" class="hover:text-brand-600">Experience</a>
+                <a href="#certifications" class="hover:text-brand-600">Certifications</a>
+                <a href="#contact" class="hover:text-brand-600">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toyota Certificate Modal -->
+    <div x-show="openToyotaCertModal" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 scale-90"
+         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-90"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md"
+         style="display: none;">
+        
+        <div @click.outside="openToyotaCertModal = false" class="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
+            <button @click="openToyotaCertModal = false" class="absolute top-4 right-4 p-2 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+
+            <div class="text-center pb-6 border-b border-slate-200 dark:border-slate-800">
+                <div class="text-red-600 font-black text-2xl tracking-wider">SHARAYU TOYOTA</div>
+                <div class="text-xs font-semibold text-slate-500 mt-1">Sharayu Automobiles — Div. of Moreshwar Trading Co. Pvt. Ltd.</div>
+            </div>
+
+            <div class="py-8 text-center space-y-4">
+                <div class="text-xs text-slate-400 font-bold uppercase tracking-widest">Training Certificate</div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white">To Whom It May Concern</h3>
+                <p class="text-slate-600 dark:text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
+                    This is to certify that <strong class="text-slate-900 dark:text-white font-extrabold">Mr. Harsh Gaur</strong> has undergone training in the <strong class="text-slate-900 dark:text-white font-bold">Sales Department</strong> from <strong class="text-red-600 font-bold">04.01.26 to 04.05.26</strong>.
+                </p>
+
+                <div class="pt-6 flex justify-around items-center border-t border-slate-100 dark:border-slate-800">
+                    <div>
+                        <div class="text-xs text-slate-400">Certificate Date</div>
+                        <div class="text-sm font-bold text-slate-800 dark:text-slate-200">May 04, 2026</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400">Department</div>
+                        <div class="text-sm font-bold text-slate-800 dark:text-slate-200">Sales & Marketing</div>
+                    </div>
+                    <div>
+                        <div class="text-xs text-slate-400">Location</div>
+                        <div class="text-sm font-bold text-slate-800 dark:text-slate-200">Colvale, Goa</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end pt-4 border-t border-slate-200 dark:border-slate-800">
+                <button @click="openToyotaCertModal = false" class="px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm hover:scale-105 transition-all">
+                    Close Preview
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resume Modal -->
+    <div x-show="openResumeModal" 
+         x-transition:enter="transition ease-out duration-300"
+         x-transition:enter-start="opacity-0 scale-90"
+         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="transition ease-in duration-200"
+         x-transition:leave-start="opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-90"
+         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/80 backdrop-blur-md"
+         style="display: none;">
+        
+        <div @click.outside="openResumeModal = false" class="relative w-full max-w-3xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800 mb-6">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <i data-lucide="file-text" class="w-5 h-5 text-brand-600"></i> Resume View — Harsh Gaur
+                </h3>
+                <div class="flex items-center gap-2">
+                    <button @click="window.print()" class="px-3.5 py-1.5 rounded-lg bg-brand-600 text-white text-xs font-bold hover:bg-brand-700 flex items-center gap-1.5 transition-all hover:scale-105">
+                        <i data-lucide="printer" class="w-3.5 h-3.5"></i> Print / Save PDF
+                    </button>
+                    <button @click="openResumeModal = false" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Resume Document Content -->
+            <div class="printable-area space-y-6 text-slate-800 dark:text-slate-200 text-sm">
+                
+                <div class="border-b border-slate-200 pb-4">
+                    <h1 class="text-2xl font-extrabold text-slate-900 dark:text-white">HARSH GAUR</h1>
+                    <div class="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                        Porvorim, Goa | gaur28harsh@gmail.com | +91 7868007869
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">Summary</h4>
+                    <p class="text-xs leading-relaxed">
+                        Final-year BBA (Marketing) student at Manipal School of Commerce and Economics with hands-on sales experience from a 4-month internship at Toyota. Strong in analytical thinking, market understanding, and professional communication.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">Technical Skills</h4>
+                    <div class="grid grid-cols-3 gap-2 text-xs">
+                        <div>• Canva</div>
+                        <div>• Microsoft Excel</div>
+                        <div>• Figma</div>
+                        <div>• Microsoft Word</div>
+                        <div>• Meta Ads</div>
+                        <div>• Artificial Intelligence</div>
+                        <div>• Microsoft PowerPoint</div>
+                        <div>• CRM Softwares</div>
+                        <div>• Google Trends</div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">Certifications</h4>
+                    <ul class="text-xs space-y-1 list-disc list-inside">
+                        <li>Risk Management and Financial Theory by Duke University (Coursera)</li>
+                        <li>Make the Sale: Build, Launch, and Manage E-commerce Stores by Google (Coursera)</li>
+                        <li>Introduction to Social Media Marketing Meta (Coursera)</li>
+                        <li>Foundations: Data, Data, Everywhere by Google (Coursera)</li>
+                        <li>Ask Questions to Make Data-Driven Decisions by Google (Coursera)</li>
+                        <li>Foundations of Business Strategy by University of Virginia</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">Education</h4>
+                    <div class="flex justify-between text-xs font-bold">
+                        <span>Manipal School of Commerce and Economics (MSCE) | MAHE</span>
+                        <span>2024 - 2027</span>
+                    </div>
+                    <div class="text-xs">Bachelor of Business Administration (BBA) — 8.3/10 CGPA</div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">Experience</h4>
+                    <div class="flex justify-between text-xs font-bold">
+                        <span>Internship at Sharayu Toyota (Sales & Marketing)</span>
+                        <span>04.01.2026 - 04.05.2026</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xs uppercase tracking-wider text-brand-600 dark:text-brand-400 mb-2">Languages</h4>
+                    <div class="text-xs">English: Fluent | Hindi: Fluent</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- App Script -->
+    <script src="app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
